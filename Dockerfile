@@ -17,6 +17,11 @@ RUN apt-get update       && \
         unzip               \
         python3-pip         \
         python3.8           \
+        pcre-tools          \
+        r-base              \
+        hdf5-tools          \
+        libhdf5-dev         \ 
+        libhdf5-serial-dev  \
         openjdk-8-jre-headless && \
     ln -s /usr/bin/python3.8 /usr/local/bin/python  && \
     apt-get clean && \
