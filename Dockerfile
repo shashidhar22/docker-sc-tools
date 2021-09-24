@@ -32,18 +32,18 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 RUN pip3 install \
     numpy=${NumPyVersion} \
     scipy=${SciPyVersion} \
-    cutadapt=${CutAdaptVersion}}
+    cutadapt=${CutAdaptVersion}
 
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -o fastqc.zip && \
     unzip fastqc.zip -d /usr/local/fastqc/ && \
     rm fastqc.zip && \
-    lb -s /usr/local/fastqc/fastqc /user/local/bin/
+    ln -s /usr/local/fastqc/fastqc /user/local/bin/
 
 RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/${TrimGaloreVersion}.tar.gz -o TrimGalore.zip && \
     unzip TrimGalore.zip -d /usr/local/trim_galore/ && \
     rm TrimGalore.zip && \
     ln -s /usr/local/trim_galore/trim_galore /usr/local/bin/
 
-RUN conda install bedtools=${BedToolsVersion}} && \
-    conda install bamtools=${BamToolsVersion}} && \
-    conda install samtools=${SamToolsVersion}}
+RUN conda install bedtools=${BedToolsVersion} && \
+    conda install bamtools=${BamToolsVersion} && \
+    conda install samtools=${SamToolsVersion}
