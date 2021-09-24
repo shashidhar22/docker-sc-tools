@@ -17,7 +17,7 @@ RUN apt-get update       && \
         unzip               \
         python3-pip         \
         python3.8           \
-        pcre-tools          \
+        libpcre2-dev        \
         r-base              \
         hdf5-tools          \
         libhdf5-dev         \ 
