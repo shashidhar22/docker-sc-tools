@@ -28,9 +28,8 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
     
-RUN conda config --add channels bioconda
-
 ENV PATH=$PATH:/opt/conda/bin
+RUN conda config --add channels bioconda
 
 RUN pip3 install \
     numpy \
