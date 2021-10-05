@@ -17,6 +17,7 @@ RUN apt-get update       && \
         unzip               \
         python3-pip         \
         python3.8           \
+        git                 \
         zlib1g              \
         pigz                \
         libpcre2-dev        \
@@ -57,3 +58,7 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/${TrimGalo
 RUN conda install bedtools=${BedToolsVersion} && \
     conda install bamtools=${BamToolsVersion} && \
     conda install samtools=${SamToolsVersion}
+
+RUN git clone git@github.com:andrewhill157/barcodeutils.git && \
+    cd barcodeutils/ && \
+    python setup.py install
