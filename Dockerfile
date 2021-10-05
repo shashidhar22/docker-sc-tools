@@ -59,6 +59,6 @@ RUN conda install bedtools=${BedToolsVersion} && \
     conda install bamtools=${BamToolsVersion} && \
     conda install samtools=${SamToolsVersion}
 
-RUN git clone git@github.com:andrewhill157/barcodeutils.git && \
+RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
     cd barcodeutils/ && \
     python setup.py install
