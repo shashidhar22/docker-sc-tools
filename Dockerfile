@@ -43,7 +43,8 @@ RUN conda config --add channels bioconda && \
 RUN pip3 install \
     numpy \
     scipy \
-    cutadapt==${CutAdaptVersion}
+    cutadapt==${CutAdaptVersion} \
+    biopython
 
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -O fastqc.zip && \
     unzip fastqc.zip -d /usr/local/ && \
