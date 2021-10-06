@@ -63,3 +63,9 @@ RUN conda install bedtools=${BedToolsVersion} && \
 RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
     cd barcodeutils/ && \
     python setup.py install
+
+RUN Rscript -e "install.packages('ggplot2')" && \
+    Rscript -e "install.packages('argparse')" && \
+    Rscript -e "install.packages('jsonlite')" && \
+    Rscript -e "install.packages('shiny')" && \
+    Rscript -e "install.packages('stringr')"
