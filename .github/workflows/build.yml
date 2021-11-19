@@ -23,6 +23,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha
@@ -39,6 +41,5 @@ jobs:
         with:
           context: .
           push: true
-          tags:  |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ steps.meta.outputs.tags }}
+          tags:  ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
