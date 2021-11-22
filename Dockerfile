@@ -67,8 +67,12 @@ RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
     cd barcodeutils/ && \
     python setup.py install
 
+# Script used to install monocle
+ADD install_monocle.R /usr/local/bin/
+
 RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('argparse')" && \
     Rscript -e "install.packages('jsonlite')" && \
     Rscript -e "install.packages('shiny')" && \
+    Rscript /usr/local/bin/install_monocle.R && \
     Rscript -e "install.packages('stringr')"
