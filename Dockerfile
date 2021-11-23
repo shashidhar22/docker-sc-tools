@@ -27,6 +27,9 @@ RUN apt-get update       && \
         hdf5-tools          \
         libhdf5-dev         \ 
         libhdf5-serial-dev  \
+        libssl-dev          \
+        libcurl4-openssl-dev \
+        libxml2-dev         \
         openjdk-8-jre-headless && \
     ln -s /usr/bin/python3.8 /usr/local/bin/python  && \
     apt-get clean && \
