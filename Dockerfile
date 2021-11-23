@@ -78,5 +78,6 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('jsonlite')" && \
     Rscript -e "install.packages('shiny')" && \
     Rscript -e "install.packages('devtools')" && \
+    Rscript -e "install.packages('sf')" && \
     Rscript /usr/local/bin/install_monocle.R && \
     Rscript -e "install.packages('stringr')"
