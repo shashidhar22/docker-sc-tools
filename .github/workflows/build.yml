@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: fredhutch/docker-genome-tools
+  IMAGE_NAME: shashidhar22/docker-sc-tools
 
 jobs:
   build-and-push-image:
