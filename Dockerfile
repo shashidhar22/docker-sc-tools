@@ -71,4 +71,21 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('argparse')" && \
     Rscript -e "install.packages('jsonlite')" && \
     Rscript -e "install.packages('shiny')" && \
-    Rscript -e "install.packages('stringr')"
+    Rscript -e "install.packages('stringr')" && \
+    Rscript -e "install.packages('BiocManager')" && \
+    Rscript -e "BiocManager::install(version = '3.15')" && \
+    Rscript -e "BiocManager::install('SingleCellExperiment')" && \
+    Rscript -e "BiocManager::install('scuttle')" && \
+    Rscript -e "BiocManager::install('scran')" && \
+    Rscript -e "BiocManager::install('scater')" && \
+    Rscript -e "BiocManager::install('rtracklayer')" && \
+    Rscript -e "BiocManager::install('DropletUtils')" && \
+    Rscript -e "BiocManager::install('org.Hs.eg.db')" && \
+    Rscript -e "BiocManager::install('scDblFinder')" && \
+    Rscript -e "install.packages('uwot')" && \
+    Rscript -e "install.packages('tidyverse')" && \
+    Rscript -e "install.packages('optparse')" && \
+    Rscript -e "install.packages('Seurat')" && \
+    Rscript -e "install.packages('remotes')" && \
+    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')" && \
+
