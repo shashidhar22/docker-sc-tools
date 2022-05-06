@@ -87,5 +87,5 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('optparse')" && \
     Rscript -e "install.packages('Seurat')" && \
     Rscript -e "install.packages('remotes')" && \
-    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')" && \
+    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"
 
