@@ -27,6 +27,7 @@ RUN apt-get update       && \
         hdf5-tools          \
         libhdf5-dev         \ 
         libhdf5-serial-dev  \
+        libopenblas-dev     \
         openjdk-8-jre-headless && \
     ln -s /usr/bin/python3 /usr/local/bin/python  && \
     apt-get clean && \
@@ -88,6 +89,7 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('uwot')" && \
     Rscript -e "install.packages('tidyverse')" && \
     Rscript -e "install.packages('optparse')" && \
-    Rscript -e "install.packages('Seurat')" && \
     Rscript -e "install.packages('remotes')" && \
     Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"  
+
+FROM satijalab/seurat:latest
