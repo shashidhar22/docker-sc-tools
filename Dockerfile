@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM satijalab/seurat:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TrimGaloreVersion 0.6.5
@@ -91,5 +91,3 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('optparse')" && \
     Rscript -e "install.packages('remotes')" && \
     Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"  
-
-FROM satijalab/seurat:latest
