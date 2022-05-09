@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TrimGaloreVersion 0.6.5
@@ -18,7 +18,7 @@ RUN apt-get update       && \
         zip                 \
         unzip               \
         python3-pip         \
-        python3.8           \
+        python3        \
         git                 \
         zlib1g              \
         pigz                \
@@ -28,7 +28,7 @@ RUN apt-get update       && \
         libhdf5-dev         \ 
         libhdf5-serial-dev  \
         openjdk-8-jre-headless && \
-    ln -s /usr/bin/python3.8 /usr/local/bin/python  && \
+    ln -s /usr/bin/python3 /usr/local/bin/python  && \
     apt-get clean && \
     apt-get purge && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -42,12 +42,15 @@ ENV PATH=$PATH:/opt/conda/bin
 RUN conda config --add channels bioconda && \
     conda upgrade conda
 
+RUN pip3 install --upgrade pip
+
 RUN pip3 install \
     numpy \
     scipy \
-    cutadapt==${CutAdaptVersion} \
+    cutadapt \
     biopython \
-    pysam
+    pysam \
+    tensorflow 
 
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -O fastqc.zip && \
     unzip fastqc.zip -d /usr/local/ && \
@@ -61,7 +64,7 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/${TrimGalo
 
 RUN conda install bedtools=${BedToolsVersion} && \
     conda install bamtools=${BamToolsVersion} && \
-    conda install samtools=${SamToolsVersion}
+    conda install samtools=${SamToolsVersion} 
 
 RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
     cd barcodeutils/ && \
@@ -73,7 +76,7 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('shiny')" && \
     Rscript -e "install.packages('stringr')" && \
     Rscript -e "install.packages('BiocManager')" && \
-    Rscript -e "BiocManager::install(version = '3.15')" && \
+    Rscript -e "BiocManager::install(version = '3.14')" && \
     Rscript -e "BiocManager::install('SingleCellExperiment')" && \
     Rscript -e "BiocManager::install('scuttle')" && \
     Rscript -e "BiocManager::install('scran')" && \
@@ -87,5 +90,4 @@ RUN Rscript -e "install.packages('ggplot2')" && \
     Rscript -e "install.packages('optparse')" && \
     Rscript -e "install.packages('Seurat')" && \
     Rscript -e "install.packages('remotes')" && \
-    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"
-
+    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"  
