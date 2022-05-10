@@ -1,93 +1,65 @@
-FROM satijalab/seurat:latest
+# Dockerfile for the Seurat 4.1.0
+FROM rocker/r-ver:4.1.0
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TrimGaloreVersion 0.6.5
-ENV BedToolsVersion=2.27.1
-ENV BamToolsVersion=2.4.0
-ENV SamToolsVersion=1.9
-ENV CutAdaptVersion=1.18
+# Set global R options
+RUN echo "options(repos = 'https://cloud.r-project.org')" > $(R --no-echo --no-save -e "cat(Sys.getenv('R_HOME'))")/etc/Rprofile.site
+ENV RETICULATE_MINICONDA_ENABLED=FALSE
 
-RUN apt-get update       && \
-    apt-get install -y      \
-        wget                \
-        bc                  \
-        datamash            \
-        curl                \
-        grep                \
-        build-essential     \
-        zip                 \
-        unzip               \
-        python3-pip         \
-        python3        \
-        git                 \
-        zlib1g              \
-        pigz                \
-        libpcre2-dev        \
-        r-base              \
-        hdf5-tools          \
-        libhdf5-dev         \ 
-        libhdf5-serial-dev  \
-        openjdk-8-jre-headless && \
-    ln -s /usr/bin/python3 /usr/local/bin/python  && \
-    apt-get clean && \
-    apt-get purge && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install Seurat's system dependencies
+RUN apt-get update
+RUN apt-get install -y \
+    libhdf5-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libpng-dev \
+    libboost-all-dev \
+    libxml2-dev \
+    openjdk-8-jdk \
+    python3-dev \
+    python3-pip \
+    wget \
+    git \
+    libfftw3-dev \
+    libgsl-dev
 
-RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-4.0.5-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh
-    
-ENV PATH=$PATH:/opt/conda/bin
-RUN conda config --add channels bioconda && \
-    conda upgrade conda
+RUN apt-get install -y llvm-10
 
-RUN pip3 install --upgrade pip
+# Install UMAP
+RUN LLVM_CONFIG=/usr/lib/llvm-10/bin/llvm-config pip3 install llvmlite
+RUN pip3 install numpy
+RUN pip3 install umap-learn
 
-RUN pip3 install \
-    numpy \
-    scipy \
-    cutadapt \
-    biopython \
-    pysam \
-    tensorflow 
+# Install FIt-SNE
+RUN git clone --branch v1.2.1 https://github.com/KlugerLab/FIt-SNE.git
+RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/nbodyfft.cpp  -o bin/fast_tsne -pthread -lfftw3 -lm
 
-RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip -O fastqc.zip && \
-    unzip fastqc.zip -d /usr/local/ && \
-    rm fastqc.zip && \
-    ln -s /usr/local/FastQC/fastqc /usr/local/bin/
+# Install bioconductor dependencies & suggests
+RUN R --no-echo --no-restore --no-save -e "install.packages('BiocManager')"
+RUN R --no-echo --no-restore --no-save -e "BiocManager::install(c('batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))"
 
-RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/${TrimGaloreVersion}.tar.gz -O TrimGalore.tar.gz && \
-    tar xvzf TrimGalore.tar.gz -C /usr/local/ && \
-    rm TrimGalore.tar.gz && \
-    ln -s /usr/local/TrimGalore-${TrimGaloreVersion}/trim_galore /usr/local/bin/
+# Install CRAN suggests
+RUN R --no-echo --no-restore --no-save -e "install.packages(c('VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools'))"
 
-RUN conda install bedtools=${BedToolsVersion} && \
-    conda install bamtools=${BamToolsVersion} && \
-    conda install samtools=${SamToolsVersion} && \
-    conda install -c conda-forge openblas 
+# Install hdf5r
+RUN R --no-echo --no-restore --no-save -e "install.packages('hdf5r')"
 
-RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
-    cd barcodeutils/ && \
-    python setup.py install
+# Install OSAR packages
+RUN R --no-echo --no-restore --no-save -e "install.packages(c('tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))"
+RUN R --no-echo --no-restore --no-save -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'DropletUtils', 'org.Hs.eg.db', 'org.Mm.eg.db', 'scDblFinder'))"
 
-RUN Rscript -e "install.packages('ggplot2')" && \
-    Rscript -e "install.packages('argparse')" && \
-    Rscript -e "install.packages('jsonlite')" && \
-    Rscript -e "install.packages('shiny')" && \
-    Rscript -e "install.packages('stringr')" && \
-    Rscript -e "install.packages('BiocManager')" && \
-    Rscript -e "BiocManager::install(version = '3.14')" && \
-    Rscript -e "BiocManager::install('SingleCellExperiment')" && \
-    Rscript -e "BiocManager::install('scuttle')" && \
-    Rscript -e "BiocManager::install('scran')" && \
-    Rscript -e "BiocManager::install('scater')" && \
-    Rscript -e "BiocManager::install('rtracklayer')" && \
-    Rscript -e "BiocManager::install('DropletUtils')" && \
-    Rscript -e "BiocManager::install('org.Hs.eg.db')" && \
-    Rscript -e "BiocManager::install('scDblFinder')" && \
-    Rscript -e "install.packages('uwot')" && \
-    Rscript -e "install.packages('tidyverse')" && \
-    Rscript -e "install.packages('optparse')" && \
-    Rscript -e "install.packages('remotes')" && \
-    Rscript -e "remotes::install_github('mojaveazure/seurat-disk')"  
+# Install Seurat
+RUN R --no-echo --no-restore --no-save -e "install.packages('remotes')"
+RUN R --no-echo --no-restore --no-save -e "install.packages('Seurat')"
+
+# Install SeuratDisk
+RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/seurat-disk')"
+
+# Install Monocle3 and Garrnet
+RUN R --no-echo --no-restore --no-save -e "install.packages('devtools')"
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/leidenbase')"
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/monocle3')"
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('cole-trapnell-lab/garnett', ref='monocle3')"
+
+# Install TCR tools
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('ncborcherding/scRepertoire@dev')"
+RUN R --no-echo --no-restore --no-save -e "devtools::install_github('WarrenLabFH/LymphoSeq2', ref='v1', build_vignette=FALSE)"
