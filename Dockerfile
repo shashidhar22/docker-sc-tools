@@ -27,7 +27,6 @@ RUN apt-get update       && \
         hdf5-tools          \
         libhdf5-dev         \ 
         libhdf5-serial-dev  \
-        libopenblas-dev     \
         openjdk-8-jre-headless && \
     ln -s /usr/bin/python3 /usr/local/bin/python  && \
     apt-get clean && \
@@ -65,7 +64,8 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/${TrimGalo
 
 RUN conda install bedtools=${BedToolsVersion} && \
     conda install bamtools=${BamToolsVersion} && \
-    conda install samtools=${SamToolsVersion} 
+    conda install samtools=${SamToolsVersion} && \
+    conda install -c conda-forge openblas 
 
 RUN git clone https://github.com/andrewhill157/barcodeutils.git && \
     cd barcodeutils/ && \
