@@ -41,7 +41,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
     R --no-echo -e "install.packages(c('shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
-    R --no-echo -e "install.packages(c('hdf5r', 'remotes', 'Seurat', 'devtools'))" && \
+    R --no-echo -e "install.packages(c('hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
     R --no-echo -e "devtools::install_github('cole-trapnell-lab/leidenbase')" && \
     R --no-echo -e "devtools::install_github('cole-trapnell-lab/monocle3')" && \
