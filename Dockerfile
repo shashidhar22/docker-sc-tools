@@ -75,7 +75,5 @@ RUN cd /opt/ && \
 ENV PATH /opt/irtools.centos:$PATH
 
 # Install DeepTCR, tcrDist, Trex, and clusTCR
-RUN pip3 install DeepTCR && \
-    pip install tcrdist3
-
+RUN pip3 install DeepTCR 
 RUN conda install clustcr-gpu -c svalkiers -c bioconda -c pytorch -c conda-forge 
