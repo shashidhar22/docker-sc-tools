@@ -46,12 +46,12 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1652981279&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTI5ODEyNzl9fX1dfQ__&Signature=MtbaEGRuv2BuYMICZ438iA6JN4mSStuXXfkVFS6ympPNIkl0qym-SqVocibfCz0fulgWdbdnUJEaryZrg-UO~-xkCbKiF8ZqXKbyE7SAUsnh-vyhhFJ8uLwTSCqgLkwL87sC-e3HTyZUYLwXsIRG4Am6BRz5tts2cxSwfolnxEvR4N~VMnRDeU93ar5rd1Ye4PzUzLgIHrOSfgjxnO-I5USN84SBwbBUWc2dRbovx13eq0kVz1VGeXH9~rC1-h0op4vrWvSoIrdAmYHUkz3V9zu~hXI~xFDvu6wgirBMrPGiuC1IMfPAWRe6Ym~~JqUZO6i0u0Ap3SZM8rUlW--nXA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \	
-	tar -xzvf cellranger-6.1.2.tar.gz && \
-	rm -f cellranger-6.1.2.tar.gz
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1653026224&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMwMjYyMjR9fX1dfQ__&Signature=PL6CqINXqz0ozj~1VVNH9UicEeMYUqzY9JZ2o8mW-oDWFxD-URlMvmjEe3cBd2WUV3hMN-x1oVVcprRpqc1hv9U59jaMm3HqUWtRS1nyc0t28CGS-s3fDQjyd7XJsIqTckCK88GAYlme12Y~rcU9CbfZpLvnySGHDQJZdiGsy-kp8prRU2nduNcS5cNPSJJNy9K-FFn-5meDM~23W57A31DALAQ19rgbbat4atpAvVs4Pjo9WdtjFQs9X2qeEyGgoT7hyv6rLEQKPN5Qg4SuxBORFb9J97T01R4HW3lbzREmC-4-Pj8FFsPkzx-hf85gmj51unZlOUb3pALCNgpv7Q__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \	
+	tar -xzvf cellranger-7.0.0.tar.gz && \
+	rm -f cellranger-7.0.0.tar.gz
 
 # path
-ENV PATH /opt/cellranger-6.1.2:$PATH
+ENV PATH /opt/cellranger-7.0.0:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
