@@ -36,13 +36,6 @@ RUN apt-get install -y \
 RUN apt-get install -y llvm-11
 RUN apt-get install -y pkg-config
 
-# Install DeepTCR, tcrDist, Trex, and clusTCR
-RUN pip3 install --upgrade pip setuptools wheel && \
-    pip3 install p5py && \
-    pip3 install PEP517 && \
-    pip3 install DeepTCR 
-RUN pip3 install tcrdist3
-RUN conda install clustcr-gpu -c svalkiers -c bioconda -c pytorch -c conda-forge 
 
 # Install UMAP
 RUN LLVM_CONFIG=/usr/lib/llvm-11/bin/llvm-config pip3 install llvmlite
