@@ -37,7 +37,8 @@ RUN apt-get install -y llvm-11
 
 # Install DeepTCR, tcrDist, Trex, and clusTCR
 RUN pip3 install --upgrade pip && \
-    pip3 install scipy && \
+    pip3 install p5py && \
+    pip3 install PEP517 && \
     pip3 install DeepTCR 
 RUN pip3 install tcrdist3
 RUN conda install clustcr-gpu -c svalkiers -c bioconda -c pytorch -c conda-forge 
