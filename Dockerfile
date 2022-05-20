@@ -34,9 +34,10 @@ RUN apt-get install -y \
     cmake   
 
 RUN apt-get install -y llvm-11
+RUN apt-get install -y pkg-config
 
 # Install DeepTCR, tcrDist, Trex, and clusTCR
-RUN pip3 install --upgrade pip && \
+RUN pip3 install --upgrade pip setuptools wheel && \
     pip3 install p5py && \
     pip3 install PEP517 && \
     pip3 install DeepTCR 
