@@ -46,7 +46,10 @@ RUN pip3 install umap-learn
 
 #Install ImmuneML
 RUN pip3 install immuneML && \
-    pip install -r requirements_DeepRC.txt --no-dependencies
+    pip3 install --no-dependencies git+https://github.com/widmi/widis-lstm-tools && \
+    pip3 install git+https://github.com/ml-jku/DeepRC
+
+
 
 ## Install compairr
 RUN git clone https://github.com/uio-bmi/compairr.git && \
