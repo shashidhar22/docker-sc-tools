@@ -44,7 +44,15 @@ RUN pip3 install numpy
 RUN pip3 install umap-learn
 
 
-#Install DeepTCR
+#Install ImmuneML
+RUN pip3 install immuneML && \
+    pip install -r requirements_DeepRC.txt --no-dependencies
+
+## Install compairr
+RUN git clone https://github.com/uio-bmi/compairr.git && \
+    cd compairr && \
+    make install
+
 #RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
 
 # Install FIt-SNE
