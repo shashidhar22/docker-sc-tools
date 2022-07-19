@@ -42,7 +42,7 @@ RUN pip3 install --upgrade pip setuptools wheel
 RUN LLVM_CONFIG=/usr/lib/llvm-11/bin/llvm-config pip3 install llvmlite
 RUN pip3 install numpy
 RUN pip3 install umap-learn
-RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
+# RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
 
 
 
