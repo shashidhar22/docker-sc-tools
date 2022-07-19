@@ -41,6 +41,8 @@ RUN apt-get install -y pkg-config
 RUN LLVM_CONFIG=/usr/lib/llvm-11/bin/llvm-config pip3 install llvmlite
 RUN pip3 install numpy
 RUN pip3 install umap-learn
+RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
+
 
 # Install FIt-SNE
 RUN git clone --branch v1.2.1 https://github.com/KlugerLab/FIt-SNE.git
@@ -58,6 +60,7 @@ ENV PATH /opt/cellranger-7.0.0:$PATH
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
+    R --no-echo -e "BiocManager::install('harmony', version = '3.8')" && \
     R --no-echo -e "install.packages(c('shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
     R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
