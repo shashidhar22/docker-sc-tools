@@ -38,11 +38,27 @@ RUN apt-get install -y pkg-config
 
 
 # Install UMAP
+RUN pip3 install --upgrade pip setuptools wheel
 RUN LLVM_CONFIG=/usr/lib/llvm-11/bin/llvm-config pip3 install llvmlite
 RUN pip3 install numpy
 RUN pip3 install umap-learn
 RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
 
+
+
+#Install ImmuneML
+RUN pip3 install immuneML && \
+    pip3 install --no-dependencies git+https://github.com/widmi/widis-lstm-tools && \
+    pip3 install git+https://github.com/ml-jku/DeepRC
+
+
+
+## Install compairr
+RUN git clone https://github.com/uio-bmi/compairr.git && \
+    cd compairr && \
+    make install
+
+#RUN pip3 install git+https://github.com/sidhomj/DeepTCR.git
 
 # Install FIt-SNE
 RUN git clone --branch v1.2.1 https://github.com/KlugerLab/FIt-SNE.git
@@ -50,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1653026224&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMwMjYyMjR9fX1dfQ__&Signature=PL6CqINXqz0ozj~1VVNH9UicEeMYUqzY9JZ2o8mW-oDWFxD-URlMvmjEe3cBd2WUV3hMN-x1oVVcprRpqc1hv9U59jaMm3HqUWtRS1nyc0t28CGS-s3fDQjyd7XJsIqTckCK88GAYlme12Y~rcU9CbfZpLvnySGHDQJZdiGsy-kp8prRU2nduNcS5cNPSJJNy9K-FFn-5meDM~23W57A31DALAQ19rgbbat4atpAvVs4Pjo9WdtjFQs9X2qeEyGgoT7hyv6rLEQKPN5Qg4SuxBORFb9J97T01R4HW3lbzREmC-4-Pj8FFsPkzx-hf85gmj51unZlOUb3pALCNgpv7Q__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \	
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1654241531&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTQyNDE1MzF9fX1dfQ__&Signature=YAlYKFlXbXnidY7HO~6iwgREUoJn32vA5wHLjBSyuDm51JIn-Bdnk7srW~7QxSNsv2wWocFzuRhG-J1KfmdJF3l~mbQnERzhrcoa63y3vsCgRUuR08jGFbC9l-~HxUpwTSdXNQtEE5lkhas~h4RwvQDex7ErQo2q8pUVEGKNorMxRAzudSjJAGJikeahQfpvpp1sAxYNPdcJQEIhfb7EusZ~2gSVsv6u9Sjzb5ucEYfzD6R3mkYfk5qXbu-grWenhvs7kDrCoNpNg5KfIH1L2V18WjAkMzXM6lMx976YCjXr5GfiWTr7ix0HRpZpygWnBxw-KOt~W5miP4m9UtKAgA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
@@ -59,9 +75,9 @@ ENV PATH /opt/cellranger-7.0.0:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
-    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
+    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater',  'ComplexHeatmap', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
     R --no-echo -e "BiocManager::install('harmony', version = '3.8')" && \
-    R --no-echo -e "install.packages(c('shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
+    R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
     R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
     R --no-echo -e "devtools::install_github('cole-trapnell-lab/leidenbase')" && \
