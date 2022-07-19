@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1654241531&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTQyNDE1MzF9fX1dfQ__&Signature=YAlYKFlXbXnidY7HO~6iwgREUoJn32vA5wHLjBSyuDm51JIn-Bdnk7srW~7QxSNsv2wWocFzuRhG-J1KfmdJF3l~mbQnERzhrcoa63y3vsCgRUuR08jGFbC9l-~HxUpwTSdXNQtEE5lkhas~h4RwvQDex7ErQo2q8pUVEGKNorMxRAzudSjJAGJikeahQfpvpp1sAxYNPdcJQEIhfb7EusZ~2gSVsv6u9Sjzb5ucEYfzD6R3mkYfk5qXbu-grWenhvs7kDrCoNpNg5KfIH1L2V18WjAkMzXM6lMx976YCjXr5GfiWTr7ix0HRpZpygWnBxw-KOt~W5miP4m9UtKAgA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1658300910&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTgzMDA5MTB9fX1dfQ__&Signature=U~sC42DUvAicL6XfQcjPs01Rvzx3U9ldYO8cxwjF8EtV3OfzUwY1igW0Z7dUmf6qiNy3lSC-GPBr9onpq~8L3ekfGIdFi7jEAJPYlH-ZpRNUuwJ~Q6zMlvh4mL4nb5tTgRrds7t-W3GhqxRP77eMXKq2Y-d8Z~aEhbrgy4MetYU9kLkxfe6yc8h~njykeZ0KmIPv-bwOBx7FwJ4vwsL94A1y-cr~DFV23FrlddRN6qaa0n4FcwHNwwdDPRGgVBTvHcnP9M3aUFdX~yn75~-pD4viKyUEIvEbWlMFK8JYm2IFwgg3wMcW46ohdMeZ8RYh2Y61wKBboH-TvP-ebxiARA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
