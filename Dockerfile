@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1658300910&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTgzMDA5MTB9fX1dfQ__&Signature=U~sC42DUvAicL6XfQcjPs01Rvzx3U9ldYO8cxwjF8EtV3OfzUwY1igW0Z7dUmf6qiNy3lSC-GPBr9onpq~8L3ekfGIdFi7jEAJPYlH-ZpRNUuwJ~Q6zMlvh4mL4nb5tTgRrds7t-W3GhqxRP77eMXKq2Y-d8Z~aEhbrgy4MetYU9kLkxfe6yc8h~njykeZ0KmIPv-bwOBx7FwJ4vwsL94A1y-cr~DFV23FrlddRN6qaa0n4FcwHNwwdDPRGgVBTvHcnP9M3aUFdX~yn75~-pD4viKyUEIvEbWlMFK8JYm2IFwgg3wMcW46ohdMeZ8RYh2Y61wKBboH-TvP-ebxiARA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1658398830&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTgzOTg4MzB9fX1dfQ__&Signature=KPrZ~qkGTnSq3e9hywPVIhqYqVdSgaHUCC3DCjDsnCN7RrJBb2DCtQ0fCPWi4CJBfiPrWc4fi~GUJcmV8A4Q~HNEYC4P83rYiKhflxDt0WUiyripTr-WXyw9ZNhil~7pKfgcIfAudlAiM0Z4~UEU5iqiZ~7Wv5pCh4xOw2YJsXBpCxkqOJpL81XSLig0~6krs5pkfdl5uJLCFubSM0fovrQWUVWKq~vR-4SZ4XDIhsyqRcjuy~95erE5khtmbh-JgrE~uAasy-KKm5tjIz3FJa5F0BVrUM6kNarFHRKxppX9ho8scmp4a~0dU7K1EiVSd~meNBmjxW9cgjlPYonHEA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
@@ -76,7 +76,6 @@ ENV PATH /opt/cellranger-7.0.0:$PATH
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater',  'ComplexHeatmap', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
-    R --no-echo -e "BiocManager::install('harmony', version = '3.8')" && \
     R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
     R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
@@ -86,7 +85,8 @@ RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "devtools::install_github('ncborcherding/scRepertoire@dev')" && \
     R --no-echo -e "devtools::install_github('adw96/breakaway')" && \
     R --no-echo -e "devtools::install_github('WarrenLabFH/LymphoSeq2', ref='v1', build_vignette=FALSE)" && \
-    R --no-echo -e "devtools::install_github('ncborcherding/Trex')"
+    R --no-echo -e "devtools::install_github('ncborcherding/Trex')" && \
+    R --no-echo -e "BiocManager::install('harmony')"
 
 # Install GLIPH2
 RUN cd /opt/ && \
