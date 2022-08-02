@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659431322&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk0MzEzMjJ9fX1dfQ__&Signature=n8v9LWdMSZ42kG0nxo-wztyBXr28PwsX2Ub7~XfvWW~h4yGKQuGY6xz5iSrU582TE0XPevhgL70e-woVPTdaSZYUjkAku5I3fClLmUt5TWB9HezxKWgOduXgjGBcgAS9tgOsPQaZRgylpbL5Tmg0m9ATFdjx5lfMy40ESl2Bakhdc8zUBh-dpD~~ZaMwxwNURiQBm~YsqrBeMCYiblk3NMe-J6irI4mEQL3REAB8ZaT1yezyLHvfwWGCRUDwIQJjHLLRcBN4OQFRUjsJU~~ABhriTu5pN1mhdnQRrPQ7YGPi~ZWNKZy~QwF2X-dThatKWVALxznWvCrBB3iAvFhppA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659506335&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk1MDYzMzV9fX1dfQ__&Signature=nUe8X26BQ2DGn7w~B7~bGL6TB-yiayK4lvnP1tMXjRqHiPt8mnm6tXDfPf1eSa7VXxgync7XN1RGq2LN1DlitdsguOG4jPDimRyLfONSeDJXVr7CQhpXMsd-Y4wM8TKzgBZXmjlljTwl1rXFc3q5GEGefEMSNWpfuynaS-l2lAmnOH3poV5~qEvWT3qrCNuE4KJ~xa9rgrsDTcQJYDu7tYz-nkOcpTdBwYQp08VD1Mz1L5uI4M76Xfym5hiW9CLUVKHqT6AIXeXr7YmOxvslu2QlbfmwWNa~BD2rjHQ5thzsYKJ8Q9JYR234PcqF8Y~DKjerMQTs2ntPNaARN9mAsg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
@@ -75,9 +75,9 @@ ENV PATH /opt/cellranger-7.0.0:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
-    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater',  'ComplexHeatmap', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" 
+    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater',  'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" 
 RUN R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" 
-RUN R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase'))" 
+RUN R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" 
 RUN R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" 
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
@@ -85,6 +85,7 @@ RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='mo
 RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
 RUN R --no-echo -e "remotes::install_github('WarrenLabFH/LymphoSeq2', ref='v1', build_vignette=FALSE)" 
 RUN R --no-echo -e "BiocManager::install('harmony')" 
+RUN R --no-echo -e "install.packages('tidyHeatmap')"
 
 # Install GLIPH2
 RUN cd /opt/ && \
@@ -93,3 +94,34 @@ RUN cd /opt/ && \
 
 ENV PATH /opt/irtools.centos:$PATH
 
+# Install tcrdist3
+RUN pip3 install python-levenshtein==0.12.0
+RUN pip3 install pytest 
+RUN pip3 install jedi==0.17.2
+RUN pip3 install ipython==7.18.1 
+RUN pip3 install git+https://github.com/kmayerb/tcrdist3.git@0.2.2
+RUN pip3 install requests
+
+# Install clusTCR
+RUN conda install -c anaconda pandas
+RUN conda install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
+
+# Load conda env
+RUN conda init bash && \
+    . /root/.bashrc && \
+    conda activate
+
+# Install Conga 
+RUN conda install mamba -n base -c conda-forge && \
+mamba init bash && \
+. /root/.bashrc && \
+mamba create -n conga_new_env ipython python=3.6 && \
+mamba activate conga_new_env && \
+mamba install seaborn scikit-learn statsmodels numba pytables && \
+mamba install -c conda-forge python-igraph leidenalg louvain notebook && \
+mamba install -c intel tbb && \
+pip install scanpy && \
+pip install fastcluster && \ 
+mamba install pyyaml && \
+mamba install -c conda-forge imagemagick 
+RUN git clone https://github.com/phbradley/conga.git && cd conga/tcrdist_cpp && make && cd .. && pip install -e .
