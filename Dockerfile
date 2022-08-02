@@ -125,3 +125,12 @@ pip install fastcluster && \
 mamba install pyyaml && \
 mamba install -c conda-forge imagemagick 
 RUN git clone https://github.com/phbradley/conga.git && cd conga/tcrdist_cpp && make && cd .. && pip install -e .
+
+# Install the scanpy ecosystem tools
+RUN pip install -U scvelo
+RUN pip install scirpy
+# Install OLGA, Alakazam, scGate, and ProjetTILs
+RUN pip install olga
+RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
+RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
+RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
