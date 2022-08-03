@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659506335&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk1MDYzMzV9fX1dfQ__&Signature=nUe8X26BQ2DGn7w~B7~bGL6TB-yiayK4lvnP1tMXjRqHiPt8mnm6tXDfPf1eSa7VXxgync7XN1RGq2LN1DlitdsguOG4jPDimRyLfONSeDJXVr7CQhpXMsd-Y4wM8TKzgBZXmjlljTwl1rXFc3q5GEGefEMSNWpfuynaS-l2lAmnOH3poV5~qEvWT3qrCNuE4KJ~xa9rgrsDTcQJYDu7tYz-nkOcpTdBwYQp08VD1Mz1L5uI4M76Xfym5hiW9CLUVKHqT6AIXeXr7YmOxvslu2QlbfmwWNa~BD2rjHQ5thzsYKJ8Q9JYR234PcqF8Y~DKjerMQTs2ntPNaARN9mAsg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659611695&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk2MTE2OTV9fX1dfQ__&Signature=Uw6CkhH5r5fpXAhW65aM47MERE2KBOBS2K~oilhtJEqFjcIenwfUcSNXv8UgwN6uVkJ7SJCT3RhHX78u2wUxZcPO-wnaCduRzPTCqXjet9AOgDo1QistOrBcx~p3BwwT~YbFtg4IKvZL0Hk~xFuJNqr-EhQ6jA9dMoLZhRILpg4167z-8pjTVOOryc7m3w1VjChyXkZ0HAYqFx-fFy2SN9--1h-pRDXO60WtGwmFxGsykHfUe2cPKFmpXmXElmunXQZSjcNm1Rk3pWsKGMb0nkxcSjkH-gDN4c4XxPxSgOpzu~8c0EFlZ5T1m8LKJEm276gvJAhNIe72pWYLRcybjA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
@@ -134,3 +134,6 @@ RUN pip install olga
 RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
 RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
 RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
+
+# Upgrade scipy and networkx to avoid conflict with coo_arracy
+RUN pip install --upgrade scipy networkx
