@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659611695&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk2MTE2OTV9fX1dfQ__&Signature=Uw6CkhH5r5fpXAhW65aM47MERE2KBOBS2K~oilhtJEqFjcIenwfUcSNXv8UgwN6uVkJ7SJCT3RhHX78u2wUxZcPO-wnaCduRzPTCqXjet9AOgDo1QistOrBcx~p3BwwT~YbFtg4IKvZL0Hk~xFuJNqr-EhQ6jA9dMoLZhRILpg4167z-8pjTVOOryc7m3w1VjChyXkZ0HAYqFx-fFy2SN9--1h-pRDXO60WtGwmFxGsykHfUe2cPKFmpXmXElmunXQZSjcNm1Rk3pWsKGMb0nkxcSjkH-gDN4c4XxPxSgOpzu~8c0EFlZ5T1m8LKJEm276gvJAhNIe72pWYLRcybjA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1659687412&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTk2ODc0MTJ9fX1dfQ__&Signature=nPkoJPbhH06W6qOWWJJhJ3RH4HmtKqJHdIPBF1G4mt0GN66a~VCzCHO4fVAATqxuLHHnppNhftfYMbYOLTITD33hl5wMKUaBWyA0~hFqQEfMibcQM9DU-N39Mu8N2L2ZN38WBZqJoWIkDtN8hItnF3Di0NTDw~vT8ZKu-3rm8UcQmDJ3Kxx55COWq~xN1ac~9MUPHZ~qeNZLHpNSmHZgDcnLu~z-9CVaAa0HAa6w36FuH3Twgk8SBimzA33gwBeUWxvqqtxTtet5yi9KlCTVk47ANwiUtI~WTjT9UXEvrohTcIweVOGaZyPbruCMX5rvxiVn40uYX~9YjPuwOA0PqQ__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.0.tar.gz && \
 	rm -f cellranger-7.0.0.tar.gz
 
@@ -136,4 +136,4 @@ RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
 RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
 
 # Upgrade scipy and networkx to avoid conflict with coo_arracy
-RUN pip install --upgrade scipy networkx
+RUN mamba install scipy networkx==2.6.3
