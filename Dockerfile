@@ -136,4 +136,4 @@ RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
 RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
 
 # Upgrade scipy and networkx to avoid conflict with coo_arracy
-RUN mamba install scipy networkx==2.6.3
+RUN mamba install scipy networkx==2.3
