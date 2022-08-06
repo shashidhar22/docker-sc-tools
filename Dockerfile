@@ -102,10 +102,6 @@ RUN pip3 install ipython==7.18.1
 RUN pip3 install git+https://github.com/kmayerb/tcrdist3.git@0.2.2
 RUN pip3 install requests
 
-# Install clusTCR
-RUN conda install -c anaconda pandas
-RUN conda install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
-
 # Load conda env
 RUN conda init bash && \
     . /root/.bashrc && \
@@ -129,11 +125,13 @@ RUN git clone https://github.com/phbradley/conga.git && cd conga/tcrdist_cpp && 
 # Install the scanpy ecosystem tools
 RUN pip install -U scvelo
 RUN pip install scirpy
+
+# Install clusTCR
+RUN conda install -c anaconda pandas
+RUN conda install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
+
 # Install OLGA, Alakazam, scGate, and ProjetTILs
 RUN pip install olga
 RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
 RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
 RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
-
-# Upgrade scipy and networkx to avoid conflict with coo_arracy
-RUN mamba install scipy networkx==2.3
