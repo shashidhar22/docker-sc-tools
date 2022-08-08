@@ -127,8 +127,9 @@ RUN pip install -U scvelo
 RUN pip install scirpy
 
 # Install clusTCR
-RUN conda install -c anaconda pandas
-RUN conda install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
+RUN mamba install -c anaconda pandas
+RUN mamba install -c conda-forge "networkx>=2.5"
+RUN mamba install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
 
 # Install OLGA, Alakazam, scGate, and ProjetTILs
 RUN pip install olga
