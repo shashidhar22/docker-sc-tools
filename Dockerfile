@@ -66,12 +66,12 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.0.tar.gz?Expires=1660025838&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjAwMjU4Mzh9fX1dfQ__&Signature=WGfxLg2VENlpIjUWe8Lnmdop-jYxAvlE9qnYNUuBKvnK6cbw4J1VyhOePoH9PssePpzDzG4PBnwcAaAx2YJHs0q0BHAqNp3I93qsXOuXEJdeD9BWWblZ1gdKAd77bSuskXs4q0~MXcORbUYKT0gq2gyQ5nP9yzpDdeUFRfcnkJ~wNcfOoFW5cgSSuLyu1FWt-Ye4kh50zNrm7WeoXfTwAqbYitdQ1TdWoAmhaE-AFD-Adoi6uOBNmdTd0sXIu6jxftonvY9QU28j5I2mipiSRdfqTlohBE5x1UsJPqJdJYDLmZUlg1~QLFYokG0ym1~8fOd4z0jYoJyXREmj6bRyqg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
-	tar -xzvf cellranger-7.0.0.tar.gz && \
-	rm -f cellranger-7.0.0.tar.gz
+	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1662114132&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjIxMTQxMzJ9fX1dfQ__&Signature=c81dlM8fVg655w~yH-LrN5lOpFKCh9ZQUY~N5MHxxfFHhfP3H94pu1UnhM~Qet3xycs-FHGSJOZTHFcmzk~2hzF5A4uNrUHnEr~4UmsOTkTDylSTsGzmisftwtjxayBt0q10gqGpADfdVovarH7YsbslmNOIFOKvisB0OGvrOPELm9F2YsnidRhVI77shgjLHZpuZ~fSvUF0JJfsrVnbl3LXmAWe~IcxnpDvPpqM9M6oE80cbu31OJoxYvv2FoQ2M2xgKslSCLWlrsY3JVOjMQzy4pdkDw3oZtrgMHv56BB3DkO66GbItf~rsljsNjhlqEZDjO9nakDe4GJMMBJIlg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	tar -xzvf cellranger-7.0.1.tar.gz && \
+	rm -f cellranger-7.0.1.tar.gz
 
 # path
-ENV PATH /opt/cellranger-7.0.0:$PATH
+ENV PATH /opt/cellranger-7.0.1:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
@@ -83,7 +83,7 @@ RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')"
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
 RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
-RUN R --no-echo -e "remotes::install_github('WarrenLabFH/LymphoSeq2', ref='v1', build_vignette=FALSE)" 
+RUN R --no-echo -e "remotes::install_github("shashidhar22/LymphoSeq2", build_vignette=TRUE)" 
 RUN R --no-echo -e "BiocManager::install('harmony')" 
 RUN R --no-echo -e "install.packages('tidyHeatmap')"
 
