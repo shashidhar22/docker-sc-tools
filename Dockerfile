@@ -83,7 +83,7 @@ RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')"
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
 RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
 RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
-RUN R --no-echo -e "remotes::install_github("shashidhar22/LymphoSeq2", build_vignette=TRUE)" 
+RUN R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2', build_vignette=TRUE)" 
 RUN R --no-echo -e "BiocManager::install('harmony')" 
 RUN R --no-echo -e "install.packages('tidyHeatmap')"
 
