@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1662384400&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjIzODQ0MDB9fX1dfQ__&Signature=UHJvM8oII3SABHltVf617qG-PR-W0wTrPB~27bhqN9gEazNdYeZgzpSWjJAmAfGbHidOlL2kceLTanV0NQBEZ-mmGOBxQBPdgltR11PaXEDYVZ0-AJmY~nwSLcM~nzorhlj75zvy~cRjaJf1dQAiOrVOl1WAD9FThRugL0R6lGCbw~g4ETq4RyALKQFEp7TFQkwmtCIflsoNwn78zYzSqLrtxXMbyFPtgNrDCHwc1G7OPkCfhV~d3ngC6TdsypWo4u2wW5T-IbAVsLsSx~S~CqAGJsXx3jjoDGiSitJhAimm7kiHRD7BYGLSwTW6mTdl-HaQSVmnF4T6xPCvnM5iag__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1664357772&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjQzNTc3NzJ9fX1dfQ__&Signature=BqNqtbECk8hGj3RUvREkZSSHa5sFdpaLpHGceJXJjLzzpjtODIhlVULvtEc8sEE-Zjp89WfCh9QAimMlMk8ML1AKSBJAsvErfAwl7jOne0OYGHzjDWC87X8~ycEdRsgYlpe0ld0lohNvnUeOVTKececfVisHbKfipNp9BjzL8~rkdM9EzK4a4auivXYEkQe7GOKA4gDUu2WMQJyjK8gOceDxkt3zhfcil4H1nX-WzjTJRSONPVRb5qCuTQdrteXlEOFV14AY4hS8Xyq6URqDB4DwfXYk2QfA9CNVui6Vwm4~SMZPIGkLYN6XVnmTRzh97eU4bDyvOeZNRx0xXE9QKA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.1.tar.gz && \
 	rm -f cellranger-7.0.1.tar.gz
 
@@ -79,10 +79,6 @@ RUN R --no-echo -e "install.packages('BiocManager')" && \
 RUN R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" 
 RUN R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" 
 RUN R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
-RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
 RUN R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2')" 
 RUN R --no-echo -e "BiocManager::install('harmony')" 
 RUN R --no-echo -e "install.packages('tidyHeatmap')"
@@ -136,3 +132,7 @@ RUN pip install olga
 RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
 RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
 RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
+RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
