@@ -66,7 +66,7 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1664357772&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjQzNTc3NzJ9fX1dfQ__&Signature=BqNqtbECk8hGj3RUvREkZSSHa5sFdpaLpHGceJXJjLzzpjtODIhlVULvtEc8sEE-Zjp89WfCh9QAimMlMk8ML1AKSBJAsvErfAwl7jOne0OYGHzjDWC87X8~ycEdRsgYlpe0ld0lohNvnUeOVTKececfVisHbKfipNp9BjzL8~rkdM9EzK4a4auivXYEkQe7GOKA4gDUu2WMQJyjK8gOceDxkt3zhfcil4H1nX-WzjTJRSONPVRb5qCuTQdrteXlEOFV14AY4hS8Xyq6URqDB4DwfXYk2QfA9CNVui6Vwm4~SMZPIGkLYN6XVnmTRzh97eU4bDyvOeZNRx0xXE9QKA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1664612542&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjQ2MTI1NDJ9fX1dfQ__&Signature=LgBr7xfYLvJrfERsqSEjQCmf4GoII-Bk6AZvxfTXcmGXFdOw17ldyjBqUAlHbfzMKzat0likT2FLr6qQIeDaamsFoSxjTsTLfGHLSgBp9BknBbCPyPh8Y5UiOF5PlKugqubPLrn7L30rKpFvc8dNoIZM2QgYc4QK1nvcVUfpzme86KGpHzmsFQ0l5pRpN0NeY290xKTCMMWWYNJOifgh4nL-vyx6yZ~eSIsfx9VRTeU6yTle3xwFuNDLOgOCa1y1-KXveDqvjAsNhJ60XKhfMkdysvmu4isPPOSPkJN235eJrid-ZdCwHyFU7j6t-fS3CPvaqASZJc~c6KVNzEjDZQ__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
 	tar -xzvf cellranger-7.0.1.tar.gz && \
 	rm -f cellranger-7.0.1.tar.gz
 
@@ -75,11 +75,18 @@ ENV PATH /opt/cellranger-7.0.1:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
-    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater',  'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" 
+    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'biomaRt', 'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" 
 RUN R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" 
 RUN R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" 
 RUN R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" 
 RUN R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2')" 
+RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
+RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
+RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
+RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
+RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
 RUN R --no-echo -e "BiocManager::install('harmony')" 
 RUN R --no-echo -e "install.packages('tidyHeatmap')"
 
@@ -129,10 +136,3 @@ RUN mamba install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
 
 # Install OLGA, Alakazam, scGate, and ProjetTILs
 RUN pip install olga
-RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
-RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
-RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
-RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
