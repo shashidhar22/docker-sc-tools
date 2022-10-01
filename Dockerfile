@@ -75,20 +75,20 @@ ENV PATH /opt/cellranger-7.0.1:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
-    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'biomaRt', 'AnnotationHub', 'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" 
-RUN R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" 
-RUN R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" 
-RUN R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" 
-RUN R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2')" 
-RUN R --no-echo -e "install.packages(c('alakazam', 'ggparty'))"
-RUN R --no-echo -e "remotes::install_github('carmonalab/scGate')"
-RUN R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')"
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" 
-RUN R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" 
-RUN R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" 
-RUN R --no-echo -e "BiocManager::install('harmony')" 
-RUN R --no-echo -e "install.packages('tidyHeatmap')"
+    R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'biomaRt', 'AnnotationHub', 'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
+    R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
+    R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" && \
+    R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
+    R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2')" && \
+    R --no-echo -e "install.packages(c('alakazam', 'ggparty'))" && \
+    R --no-echo -e "remotes::install_github('carmonalab/scGate')" && \
+    R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')" && \
+    R --no-echo -e "remotes::install_github('cole-trapnell-lab/leidenbase')" && \
+    R --no-echo -e "remotes::install_github('cole-trapnell-lab/monocle3')" && \
+    R --no-echo -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')" && \
+    R --no-echo -e "remotes::install_github('ncborcherding/scRepertoire@dev')" && \
+    R --no-echo -e "BiocManager::install('harmony')" && \
+    R --no-echo -e "install.packages('tidyHeatmap')"
 
 # Install GLIPH2
 RUN cd /opt/ && \
