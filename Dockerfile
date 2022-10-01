@@ -98,41 +98,37 @@ RUN cd /opt/ && \
 ENV PATH /opt/irtools.centos:$PATH
 
 # Install tcrdist3
-RUN pip3 install python-levenshtein==0.12.0
-RUN pip3 install pytest 
-RUN pip3 install jedi==0.17.2
-RUN pip3 install ipython==7.18.1 
-RUN pip3 install git+https://github.com/kmayerb/tcrdist3.git@0.2.2
-RUN pip3 install requests
+RUN pip3 install python-levenshtein==0.12.0 && \
+    pip3 install pytest && \
+    pip3 install jedi==0.17.2 && \
+    pip3 install ipython==7.18.1 && \
+    pip3 install git+https://github.com/kmayerb/tcrdist3.git@0.2.2 && \
+    pip3 install requests
 
-# Load conda env
+# Load conda env and install Conga. clustcr, scanpy ecosystem tools, clusTCR and OLGA
 RUN conda init bash && \
     . /root/.bashrc && \
-    conda activate
+    conda activate && \
+    conda install mamba -n base -c conda-forge && \
+    mamba init bash && \
+    . /root/.bashrc && \
+    mamba create -n conga_new_env ipython python=3.6 && \
+    mamba activate conga_new_env && \
+    mamba install seaborn scikit-learn statsmodels numba pytables && \
+    mamba install -c conda-forge python-igraph leidenalg louvain notebook && \
+    mamba install -c intel tbb && \
+    pip install scanpy && \
+    pip install fastcluster && \ 
+    mamba install pyyaml && \
+    mamba install -c conda-forge imagemagick && \ 
+    git clone https://github.com/phbradley/conga.git && cd conga/tcrdist_cpp && make && cd .. && pip install -e . && \
+    mamba install -c anaconda pandas && \
+    mamba install -c conda-forge "networkx>=2.5" && \
+    mamba install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge && \
+    pip install -U scvelo && \
+    pip install scirpy && \
+    pip install olga && \
+    mamba install -c anaconda pandas && \
+    mamba install -c conda-forge "networkx>=2.5" && \
+    mamba install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
 
-# Install Conga 
-RUN conda install mamba -n base -c conda-forge && \
-mamba init bash && \
-. /root/.bashrc && \
-mamba create -n conga_new_env ipython python=3.6 && \
-mamba activate conga_new_env && \
-mamba install seaborn scikit-learn statsmodels numba pytables && \
-mamba install -c conda-forge python-igraph leidenalg louvain notebook && \
-mamba install -c intel tbb && \
-pip install scanpy && \
-pip install fastcluster && \ 
-mamba install pyyaml && \
-mamba install -c conda-forge imagemagick 
-RUN git clone https://github.com/phbradley/conga.git && cd conga/tcrdist_cpp && make && cd .. && pip install -e .
-
-# Install the scanpy ecosystem tools
-RUN pip install -U scvelo
-RUN pip install scirpy
-
-# Install clusTCR
-RUN mamba install -c anaconda pandas
-RUN mamba install -c conda-forge "networkx>=2.5"
-RUN mamba install clustcr -c svalkiers -c bioconda -c pytorch -c conda-forge
-
-# Install OLGA, Alakazam, scGate, and ProjetTILs
-RUN pip install olga
