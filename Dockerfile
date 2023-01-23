@@ -66,12 +66,12 @@ RUN g++ -std=c++11 -O3 FIt-SNE/src/sptree.cpp FIt-SNE/src/tsne.cpp FIt-SNE/src/n
 
 # Install cellranger; Note: you might need a new cellranger download link everytime you build the image
 RUN cd /opt/ && \
-	wget -O cellranger-7.0.1.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.0.1.tar.gz?Expires=1664697036&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjQ2OTcwMzZ9fX1dfQ__&Signature=NlHWZCWdymanDTurWq7GFfdlT8r9aE8Gsf6B77VSTYd-nk5s4~Wh7oEvU-hygYPfS2AEPcp71Xp-VHkhYtb4AMXmUYdEPqhb7bqvcGCxLVRcoITdLhJ2c549QNldeW5XmunggZBSXqW9iuQvp4f1O1uTwvoh0YYtafzys5F9OW3YRG4DY1KwyQi0DCH7rwKhneef0-eq7TdHpCGR-svEsu09qGQ~dogyXxfshSeqCmTMVORlBAezXZDF14BWneWZUMEiddyAvew0FsDihUKO5TDUqCl-dUWsFi0bg-r4JuCdT9j7mBk6enf5tO9Ujta-GtWzOzD~kIFbVZ8zt8jYtA__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
-	tar -xzvf cellranger-7.0.1.tar.gz && \
-	rm -f cellranger-7.0.1.tar.gz
+	wget -O cellranger-7.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.1.0.tar.gz?Expires=1674554368&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjEuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NzQ1NTQzNjh9fX1dfQ__&Signature=WrnxiybWMbSK-PMcZoGACr6gGr08~2LFlmpQLROpcrCBnjjSWeGGCYnu1O1FFKeMg9f1qpUhY1NuZLZwXoj9Siqgouo9OpeCINT0WUiXLxdKkjgSo59FPd0NFrKDvkn1hhosQfU2oLXeI33B9LqNl13himIW3wFH5DfrIDp4GviY4nRWQwXBf7nVip0jYt4OWsKoyKTW6~SH4byE4Tjx-p5-S4ceAm4ch0q0vpewC8PSXiqdTh3ppvGwycLw1f1KWB0eKPi81T2deeDylo6aJ7sarQvIta6eehNuu10jg6~FLwXr0~z0f3eyZXzg1m5AV1UM3nhYDcKeVQdMkEL5tQ__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA" && \
+	tar -xzvf cellranger-7.1.0.tar.gz && \
+	rm -f cellranger-7.1.0.tar.gz
 
 # path
-ENV PATH /opt/cellranger-7.0.1:$PATH
+ENV PATH /opt/cellranger-7.1.0:$PATH
 
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
@@ -79,7 +79,7 @@ RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
     R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
-    R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2')" && \
+    R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2', build_vigentte = TRUE)" && \
     R --no-echo -e "install.packages(c('alakazam', 'ggparty'))" && \
     R --no-echo -e "remotes::install_github('carmonalab/scGate')" && \
     R --no-echo -e "remotes::install_github('carmonalab/ProjecTILs')" && \
