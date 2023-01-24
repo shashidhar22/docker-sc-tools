@@ -20,6 +20,7 @@ RUN apt-get install -y \
     libssl-dev \
     libpng-dev \
     libboost-all-dev \
+    libcairo2-dev \
     libxml2-dev \
     openjdk-8-jdk \
     python3-dev \
@@ -29,6 +30,7 @@ RUN apt-get install -y \
     libfftw3-dev \
     libgsl-dev \
     libgeos-dev \
+    libfontconfig1-dev \
     libudunits2-dev \
     libgdal-dev \
     cmake   
@@ -76,7 +78,7 @@ ENV PATH /opt/cellranger-7.1.0:$PATH
 # Install bioconductor dependencies & suggests
 RUN R --no-echo -e "install.packages('BiocManager')" && \
     R --no-echo -e "BiocManager::install(c('scuttle', 'scran', 'scater', 'biomaRt', 'ensembldb', 'AnnotationHub', 'ComplexHeatmap', 'HDF5Array', 'DropletUtils', 'org.Hs.eg.db', 'phyloseq', 'org.Mm.eg.db', 'scDblFinder', 'batchelor', 'Biobase', 'BiocGenerics', 'DESeq2', 'DelayedArray', 'DelayedMatrixStats', 'GenomicRanges', 'glmGamPoi', 'IRanges', 'limma', 'MAST', 'Matrix.utils', 'multtest', 'rtracklayer', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment'))" && \
-    R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse'))" && \
+    R --no-echo -e "install.packages(c('pheatmap', 'shiny', 'spdep', 'rgeos', 'VGAM', 'R.utils', 'metap', 'Rfast2', 'ape', 'enrichR', 'mixtools', 'tidyverse', 'argparse', 'jsonlite', 'uwot', 'optparse', 'systemfonts'))" && \
     R --no-echo -e "install.packages(c('keras', 'hdf5r', 'remotes', 'Seurat', 'devtools', 'robustbase', 'ggrastr', 'terra', 'lme4'))" && \
     R --no-echo -e "remotes::install_github('mojaveazure/seurat-disk')" && \
     R --no-echo -e "remotes::install_github('shashidhar22/LymphoSeq2', build_vigentte = TRUE)" && \
